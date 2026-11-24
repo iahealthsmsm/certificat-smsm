@@ -53,7 +53,7 @@ $('f').onsubmit=async ev=>{ev.preventDefault();$('err').textContent='';const nom
  if(!ok(nom)||!ok(pre)){$('err').textContent='Écrivez votre nom et votre prénom en lettres latines, sans chiffres.';return}
  $('go').disabled=true;$('go').textContent='Préparation…';
  try{if(await ferme())return;
-  const [m]=await Promise.all([charge('modele.jpg'),document.fonts.load('900 100px Cert','AÉ')]);
+  const [m]=await Promise.all([charge('modele.jpg?v=2'),document.fonts.load('900 100px Cert','AÉ')]);
   const c=dessine(m,(nom+' '+pre).toLocaleUpperCase('fr')),j=await blob(c,'image/jpeg',.92),p=await pdf(j,c.width,c.height);
   const fn='Certificat_'+(nom+'_'+pre).normalize('NFD').replace(/\p{M}/gu,'').replace(/[^A-Za-z0-9]+/g,'_')+'.pdf';
   file=new File([p],fn,{type:'application/pdf'});urls.forEach(URL.revokeObjectURL);urls=[URL.createObjectURL(j),URL.createObjectURL(p)];
